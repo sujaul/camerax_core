@@ -22,9 +22,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application>
+
         <activity
-            android:name=".CameraxActivity"
             android:exported="true"
+            android:name=".CameraXActivity"
             android:clearTaskOnLaunch="true"
             android:screenOrientation="fullUser"
             android:rotationAnimation="seamless"
@@ -32,6 +33,12 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize"
             tools:targetApi="O">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+
             <!-- Register as a system camera app -->
             <intent-filter>
                 <action android:name="android.media.action.IMAGE_CAPTURE" />
@@ -50,9 +57,23 @@
                 <data android:host="example.android.com" />
                 <data android:pathPattern="/camerax" />
             </intent-filter>
+
             <!-- Declare notch support -->
             <meta-data android:name="android.notch_support" android:value="true"/>
+
         </activity>
+
+        <!-- FileProvider used to share photos with other apps -->
+        <!--<provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>-->
+
     </application>
 
 </manifest>
