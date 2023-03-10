@@ -195,6 +195,7 @@ class CameraFragment : Fragment(),
             }
         }
         setEnabledView(true)
+        setLocation()
     }
 
     override fun onDestroyView() {
@@ -1121,14 +1122,14 @@ class CameraFragment : Fragment(),
         gps?.beginUpdates()
         gps?.setListener(object : SimpleLocation.Listener {
             override fun onPositionChanged() {
-                currLat = gps!!.latitude.toString() + ""
-                currLon = gps!!.longitude.toString() + ""
                 if (act.isUseMockDetection()) {
                     if (Utils.isMockLocationOn(gps!!.location)) {
                         showDialogMock(activity)
                         return
                     }
                 }
+                currLat = gps!!.latitude.toString() + ""
+                currLon = gps!!.longitude.toString() + ""
                 setLocation()
             }
         })
@@ -1159,13 +1160,7 @@ class CameraFragment : Fragment(),
     }
 
     private fun setLocation() {
-        Log.d("aaaaa", "llalala")
         if (currLat == "" || currLat == "0" || currLon == "" || currLon == "0") {
-            Toast.makeText(
-                contexts,
-                "Location not found, please check your GPS and Internet connection!!!",
-                Toast.LENGTH_LONG
-            ).show()
             return
         }
         Utils.getAddress(contexts, currLat.toDouble(), currLon.toDouble()){address ->
